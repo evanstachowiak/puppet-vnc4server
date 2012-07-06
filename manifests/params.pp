@@ -1,6 +1,6 @@
-# Class xvfb:params
+# Class vnc4server::params
 #
-# Default params for xvfb
+# Default params for vnc4server
 #
 # == Parameters
 #
@@ -16,12 +16,17 @@
 #
 # == Requires:
 #
-class xvfb::params {
+class vnc4server::params {
 
   $display_no         = '5'
   $profile_d_sh_mode  = '0644'
   $profile_d_sh_owner = 'root'
   $profile_d_sh_group = 'root'
+
+  $user               = 'root'
+  $depth              = '16'
+  $geometry           = '1920x1080'
+  $options            = "-name ${name} -depth ${depth} -geometry ${geometry} :${display}"
 
   # Fail if the OS is not Ubuntu/Debian
   case $::operatingsystem {

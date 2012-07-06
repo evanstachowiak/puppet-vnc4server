@@ -1,0 +1,52 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          vncserver
+# Required-Start:    networking
+# Default-Start:     S
+# Default-Stop:      0 6
+### END INIT INFO
+
+PATH="$PATH:/usr/bin/"
+
+# The Username:Group that will run VNC
+export USER="<%= user %>"
+#${RUNAS}
+
+# The display that VNC will use
+DISPLAY="<%= display_no %>"
+
+# Color depth (between 8 and 32)
+DEPTH="<%= depth %>"
+
+# The Desktop geometry to use.
+#GEOMETRY="<WIDTH>x<HEIGHT>"
+#GEOMETRY="800x600"
+#GEOMETRY="1024x768"
+#GEOMETRY="1280x1024"
+GEOMETRY="<%= geometry %>"
+
+# The name that the VNC Desktop will have.
+NAME="<%= name %>"
+
+OPTIONS="<% if @options %><%= @options %><% else %>-name ${NAME} -depth ${DEPTH} -geometry ${GEOMETRY} :${DISPLAY}<% end %>"
+
+. /lib/lsb/init-functions
+
+case "$1" in
+start)
+log_action_begin_msg "Starting vncserver for user '${USER}' on localhost:${DISPLAY}"
+su ${USER} -c "/usr/bin/vncserver ${OPTIONS}"
+;;
+
+stop)
+log_action_begin_msg "Stoping vncserver for user '${USER}' on localhost:${DISPLAY}"
+su ${USER} -c "/usr/bin/vncserver -kill :${DISPLAY}"
+;;
+
+restart)
+$0 stop
+$0 start
+;;
+esac
+
+exit 0

@@ -1,7 +1,7 @@
-puppet-newrelic - New Relic Server Monitor
+puppet-vnc4server - VNC Display Server
 ==========================================
 
-This puppet module will install xvfb and set a specific
+This puppet module will install vnc4server and set a specific
 display port.
 
 This module supports Ubuntu 10.04
@@ -9,13 +9,14 @@ This module supports Ubuntu 10.04
 Installation
 ------------
 
-1. Copy this directory to your puppet master module path $(git clone https://github.com/evanstachowiak/puppet-xvfb xvfb)
-2. Apply the `xvfb` class to any nodes you want the agent installed on: `class { 'xvfb': display_no => 'displayNum' }`
+1. Copy this directory to your puppet master module path $(git clone https://github.com/evanstachowiak/puppet-vnc4server vnc4server)
+2. Apply the `vnc4server` class to any nodes you want the agent installed on: `class { 'vnc4server': }`
+3. Create an arbitrary number of displays: vnc4server::display { display_no => '5'}
 
 Contributing
 ------------
 
-- fork on github (https://github.com/evanstachowiak/puppet-xvfb)
+- fork on github (https://github.com/evanstachowiak/puppet-vnc4server)
 - send a pull request
 
 Author
